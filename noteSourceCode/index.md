@@ -1,7 +1,7 @@
 title: 小康个人笔记本
 speaker: 小康&小康新鲜事儿
 
-<slide class="bg-black-blue aligncenter" image="https://ae01.alicdn.com/kf/H80b947d1c60244fea2c02b901ef3decdz.jpg .dark">
+<slide class="bg-black-blue aligncenter" image="https://boyue-file.oss-cn-beijing.aliyuncs.com/logo_bg.jpg .dark">
 
 # 小康个人笔记本 {.text-landing.text-shadow.text-landing.animated.fadeInRight}
 
