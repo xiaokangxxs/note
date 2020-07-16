@@ -7,7 +7,7 @@ speaker: 小康&小康新鲜事儿
 
 :::cta
 
-::!![](https://ae01.alicdn.com/kf/H33ef6c7dc5034e3288a86537ef39dad5v.jpg .size-40)::
+::!![](https://boyue-file.oss-cn-beijing.aliyuncs.com/gzh.jpg .size-40)::
 
 ---
 
