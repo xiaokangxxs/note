@@ -30,19 +30,19 @@ speaker: 小康&小康新鲜事儿
 <br/><br/>
 :::gallery-overlay
 
-![Hadoop前置准备](https://ae01.alicdn.com/kf/H5b9c586d5f814f559fe2eb1400f4d0cc5.jpg)
+![Hadoop前置准备](https://boyue-file.oss-cn-beijing.aliyuncs.com/hadoop-1.png)
 
 ## [Hadoop前置准备](https://mp.weixin.qq.com/s/sTcyhn5hCYD6ThqZOR6g1Q) {.aligncenter}
 
 ---
 
-![Hadoop单机伪分布式环境搭建](https://ae01.alicdn.com/kf/Hf30dd532d7d44db49a62975785bced4fg.jpg)
+![Hadoop单机伪分布式环境搭建](https://boyue-file.oss-cn-beijing.aliyuncs.com/hadoop-2.png)
 
 ## [Hadoop单机伪分布式环境搭建](https://mp.weixin.qq.com/s/Ic1aumcFa8B-a-9kg5AscQ) {.aligncenter}
 
 ---
 
-![HA-Hadoop集群环境搭建](https://ae01.alicdn.com/kf/Hd1c1222dbff64fc38eb3f934bfaf0755x.jpg)
+![HA-Hadoop集群环境搭建](https://boyue-file.oss-cn-beijing.aliyuncs.com/hadoop-3.png)
 
 ## [HA-Hadoop集群环境搭建](https://mp.weixin.qq.com/s/gmOmg6uKD2LjhZPf4eZXdA) {.aligncenter}
 
