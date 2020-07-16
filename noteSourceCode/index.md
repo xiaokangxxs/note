@@ -24,7 +24,7 @@ speaker: 小康&小康新鲜事儿
 [:fa-envelope: Email](mailto:xiaokang.188@qq.com){.button.ghost.animated.flipInX.delay-1200}{.aligncenter}&nbsp;[:fa-comments: 小康新鲜事儿](https://mp.weixin.qq.com/s/3-3_Ns5nDIhcB7TS7d-ocA){.button.ghost.animated.flipInX.delay-1200}{.aligncenter}&nbsp;[:fa-laptop: Bilibili](https://space.bilibili.com/475563389){.button.ghost.animated.flipInX.delay-1200}{.aligncenter}
 :::	
 
-<slide :class=" size-80">
+<slide :class="size-80">
 
 ##### 部分视频教程，更多课程关注微信公众号：小康新鲜事儿，回复【大数据】获取
 <br/><br/>
