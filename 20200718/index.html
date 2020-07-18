@@ -1,0 +1,92 @@
+<!doctype html><html><head><meta charset=UTF-8><title>公开课直播第一期 - By 小康&amp;小康新鲜事儿</title><link rel=stylesheet href=https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css><link rel=stylesheet href=https://cdn.staticfile.org/prism/1.15.0/themes/prism.min.css><link rel=stylesheet href=https://cdn.staticfile.org/KaTeX/0.10.0-rc.1/katex.min.css><link rel=stylesheet href=https://cdn.staticfile.org/prism/1.15.0/themes/prism-solarizedlight.min.css><link href=./css/chunk-vendors.4e4765ff.css rel=stylesheet></head><body><div><article id=webslides><section slide class="slide bg-gradient-r aligncenter"><div class=wrap wrap=true><h1 class="text-landing text-shadow text-landing animated fadeInRight">公开课直播第一期&amp;Hadoop前置准备</h1><p><br><br>讲师：小康</p><div class=aligncenter><ul><li>翻页: ↑/↓/←/→ Space Home End</li><li>全屏: F</li><li>预览: -/+</li><li>网格背景: Enter</li></ul></div><p><br><a href=mailto:xiaokang.188@qq.com class="button ghost animated flipInX delay-1200"><i class="fa fa-envelope"></i> Email</a> <a href=https://space.bilibili.com/475563389 class="button ghost animated flipInX delay-1200" target=_blank><i class="fa fa-laptop"></i> Bilibili</a></p></div><footer><div class=wrap><p><a href=https://mp.weixin.qq.com/s/3-3_Ns5nDIhcB7TS7d-ocA class=alignright target=_blank><i class="fa fa-comments"></i> 小康新鲜事儿</a></p></div></footer></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/DD1fSz2HF1s/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/DD1fSz2HF1s/')"></span><div class=wrap wrap=true><h2>下载CentOS7镜像，固定虚拟机IP</h2><div class="vertical-align grid"><div class=column><ul><li><a href=http://mirrors.sohu.com/centos/7.7.1908/isos/x86_64/CentOS-7-x86_64-DVD-1908.iso class="button animated delay-1s fadeInDown" target=_blank><i class="fa fa-cloud-download"></i> 主播同款镜像:CentOS-7.7.1908</a></li><li>1.修改<code>/etc/sysconfig/network-scripts/ifcfg-ens33</code>，按照右图所示进行更改</li><li>2.修改完成后重启网络服务生效，<code>systemctl restart network</code></li><li>3.使用<code>ip add | grep inet</code>查看IP是否固定成功</li></ul></div><div class=column><pre class="fadeInUp slow language-properties"><code class=language-properties><span class="token comment">#修改</span>
+<span class="token attr-name">BOOTPROTO</span><span class="token punctuation">=</span><span class="token attr-value">static</span>
+<span class="token attr-name">ONBOOT</span><span class="token punctuation">=</span><span class="token attr-value">yes</span>
+<span class="token comment">#添加</span>
+<span class="token attr-name">DNS1</span><span class="token punctuation">=</span><span class="token attr-value">114.114.114.114</span>
+<span class="token comment">#根据自己的网段进行配置</span>
+<span class="token attr-name">IPADDR</span><span class="token punctuation">=</span><span class="token attr-value">192.168.244.188</span>
+<span class="token attr-name">NETMASK</span><span class="token punctuation">=</span><span class="token attr-value">255.255.255.0</span>
+<span class="token attr-name">GATEWAY</span><span class="token punctuation">=</span><span class="token attr-value">192.168.244.2</span>
+</code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/DD1fSz2HF1s/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/DD1fSz2HF1s/')"></span><div class=wrap wrap=true><h2>使用XShell连接虚拟机，创建自定义用户和组</h2><div class="vertical-align grid"><div class=column><ul><li>1.以root用户身份创建自定义组(hadoopenv)和用户(xiaokang)</li><li>2.为自定义用户设置登录密码</li><li>3.让刚创建的自定义用户<code>xiaokang</code>拥有超级管理员权限（修改<code>/etc/sudoers</code>文件权限（默认权限<em>440</em>）并进行内容的修改，在100行后加入一行数据<code>xiaokang ALL=(ALL) NOPASSWD:ALL</code>，最后将该文件权限改回默认值即可）</li><li>4.前3步完成后切换至<code>xiaokang</code>用户，后续所有操作均使用自定义用户</li></ul></div><div class=column><pre class="fadeInUp slow language-textile"><code class=language-textile><span class="token phrase"><span class="token list"><span class="token punctuation">#</span> 创建自定义组hadoopenv</span>
+[root@localhost ~]# groupadd -g 1124 hadoopenv
+<span class="token list"><span class="token punctuation">#</span> 创建自定义用户xiaokang并指定属于hadoopenv组</span>
+[root@localhost ~]# useradd <span class="token inline"><span class="token punctuation">-</span><span class="token deleted">m </span><span class="token punctuation">-</span></span>g hadoopenv -u 1124 xiaokang
+<span class="token list"><span class="token punctuation">#</span> 为xiaokang用户设置登录密码</span>
+[root@localhost ~]# passwd xiaokang
+<span class="token list"><span class="token punctuation">#</span> 使xiaokang用户拥有超级管理员权限</span>
+[root@localhost ~]# chmod 640 /etc/sudoers
+[root@localhost ~]# vim /etc/sudoers
+[root@localhost ~]# chmod 440 /etc/sudoers
+<span class="token list"><span class="token punctuation">#</span> 切换至xiaokang用户</span>
+[root@localhost ~]# su xiaokang
+</span></code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/DD1fSz2HF1s/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/DD1fSz2HF1s/')"></span><div class=wrap wrap=true><h2>修改主机名，配置映射</h2><div class="vertical-align grid"><div class=column><ul><li>1.在命令行进行修改<code>sudo hostname hadoop</code></li><li>2.修改<code>/etc/sysconfig/network</code>文件，加入两行内容<code>NETWORKING=yes HOSTNAME=hadoop</code></li><li>3.修改<code>/etc/hostname</code>文件，将原有内容删除，写入<code>hadoop</code></li><li>4.前3步完成后退出XShell连接，重新连接以后再修改<code>/etc/hosts</code>文件，配置IP与主机之间的映射关系，在最后追加<code>192.168.244.188 hadoop</code></li></ul></div><div class=column><pre class="fadeInUp slow language-textile"><code class=language-textile><span class="token phrase">[xiaokang@localhost ~]$ sudo hostname hadoop
+[xiaokang@localhost ~]$ sudo vim /etc/sysconfig/network
+[xiaokang@localhost ~]$ sudo vim /etc/hostname
+[xiaokang@localhost ~]$ exit
+[root@localhost ~]# exit
+[xiaokang@hadoop ~]$ sudo vim /etc/hosts
+</span></code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/DD1fSz2HF1s/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/DD1fSz2HF1s/')"></span><div class=wrap wrap=true><h2>关闭防火墙和SELinux</h2><div class="vertical-align grid"><div class=column><ul><li>1.关闭防火墙并禁用其开机自启</li><li>2.永久关闭SELinux，将<code>/etc/selinux/config</code>中<code>SELINUX=enforcing</code>改为<code>SELINUX=disabled</code></li></ul></div><div class=column><pre class="fadeInUp slow language-textile"><code class=language-textile><span class="token phrase"><span class="token list"><span class="token punctuation">#</span> 查看防火墙状态</span>
+[xiaokang@hadoop ~]$ sudo systemctl status firewalld
+<span class="token list"><span class="token punctuation">#</span> 关闭防火墙</span>
+[xiaokang@hadoop ~]$ sudo systemctl stop firewalld
+<span class="token list"><span class="token punctuation">#</span> 关闭防火墙开机自启</span>
+[xiaokang@hadoop ~]$ sudo systemctl disable firewalld.service
+Removed symlink /etc/systemd/system/multi-user.target.wants/firewalld.service.
+Removed symlink /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service.
+<span class="token list"><span class="token punctuation">#</span> 禁用SELinux</span>
+[xiaokang@hadoop ~]$ sudo vim /etc/selinux/config 
+</span></code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/DD1fSz2HF1s/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/DD1fSz2HF1s/')"></span><div class=wrap wrap=true><h2>配置免密登录自己</h2><div class="vertical-align grid"><div class=column><ul><li>1.使用<code>ssh-keygen</code>命令生成一对儿私钥和公钥</li><li>2.使用<code>ssh-copy-id</code>命令将公钥复制给需要登录的节点(这里指自己)的<code>authorized_keys</code>文件中</li></ul></div><div class=column><pre class="fadeInUp slow language-textile"><code class=language-textile><span class="token phrase"><span class="token list"><span class="token punctuation">#</span> 生成一对儿私钥和公钥</span>
+[xiaokang@hadoop ~]$ ssh<span class="token inline"><span class="token punctuation">-</span><span class="token deleted">keygen </span><span class="token punctuation">-</span></span>t rsa <span class="token inline"><span class="token punctuation">-</span><span class="token deleted">N '' </span><span class="token punctuation">-</span></span>C "xiaokangxxs<span class="token inline"><span class="token punctuation">-</span><span class="token deleted">teach</span><span class="token punctuation">-</span></span>1"
+<span class="token list"><span class="token punctuation">#</span> 将公钥拷贝给自己</span>
+[xiaokang@hadoop <span class="token inline"><span class="token punctuation">~</span>]$ ssh<span class="token punctuation">-</span>copy<span class="token punctuation">-</span>id [<span class="token punctuation">-</span>i <span class="token punctuation">~</span></span>/.ssh/id_rsa.pub] hadoop
+<span class="token list"><span class="token punctuation">#</span> 测试免密登陆</span>
+[xiaokang@hadoop ~]$ ssh hadoop
+Last login: Sun Jul 19 02:37:11 2020 from hadoop
+[xiaokang@hadoop ~]$ exit
+logout
+Connection to hadoop closed.
+</span></code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/DD1fSz2HF1s/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/DD1fSz2HF1s/')"></span><div class=wrap wrap=true><h2>修改指定文件夹权限， 配置Java环境</h2><div class="vertical-align grid"><div class=column><ul><li>1.创建<code>/opt/moudle</code>文件夹，修改权限为<code>xiaokang:hadoopenv</code></li><li>2.准备好<a href=https://ws28.cn/f/31gjuylu2lk class="button animated delay-1s fadeInDown" target=_blank><i class="fa fa-cloud-download"></i> jdk-8u191-linux-x64.tar.gz(三天有效期)</a>，解压至<code>/opt/moudle</code>文件夹内</li><li>3.配置环境变量（<code>/etc/profile.d/env.sh</code>），最后检验Java环境是否配置成功</li></ul></div><div class=column><pre class="fadeInUp slow language-textile"><code class=language-textile><span class="token phrase">[xiaokang@hadoop ~]$ sudo mkdir /opt/moudle
+[xiaokang@hadoop ~]$ sudo chown -R xiaokang:hadoopenv /opt/moudle/
+[xiaokang@hadoop ~]$ tar <span class="token inline"><span class="token punctuation">-</span><span class="token deleted">zxvf jdk</span><span class="token punctuation">-</span></span>8u191<span class="token inline"><span class="token punctuation">-</span><span class="token deleted">linux</span><span class="token punctuation">-</span></span>x64.tar.gz -C /opt/moudle/
+[xiaokang@hadoop ~]$ sudo vim /etc/profile.d/env.sh</span>
+
+<span class="token phrase">export JAVA<span class="token inline"><span class="token punctuation">_</span><span class="token italic">HOME=/opt/moudle/jdk1.8.0</span><span class="token punctuation">_</span></span>191
+export JRE<span class="token inline"><span class="token punctuation">_</span><span class="token italic">HOME=${JAVA</span><span class="token punctuation">_</span></span>HOME}/jre
+export CLASSPATH=.:${JAVA<span class="token inline"><span class="token punctuation">_</span><span class="token italic">HOME}/lib:${JRE</span><span class="token punctuation">_</span></span>HOME}/lib
+export PATH=${JAVA_HOME}/bin:$PATH</span>
+
+<span class="token phrase">[xiaokang@hadoop ~]$ . /etc/profile.d/env.sh 
+[xiaokang@hadoop ~]$ java -version
+java version "1.8.0_191"
+Java<span class="token mark comment"><span class="token punctuation">(</span>TM<span class="token punctuation">)</span></span> SE Runtime Environment (build 1.8.0_191-b12)
+Java HotSpot<span class="token mark comment"><span class="token punctuation">(</span>TM<span class="token punctuation">)</span></span> 64<span class="token inline"><span class="token punctuation">-</span><span class="token deleted">Bit Server VM (build 25.191</span><span class="token punctuation">-</span></span>b12, mixed mode)
+</span></code></pre></div></div></div></section><section slide class="slide bg-black-blue aligncenter" image="https://cn.bing.com/az/hprichbg/rb/PragueChristmas_EN-AU8649790921_1920x1080.jpg .dark"><span class="background dark" style="background-image:url('https://cn.bing.com/az/hprichbg/rb/PragueChristmas_EN-AU8649790921_1920x1080.jpg')"></span><div class=wrap wrap=true><h2 class="animated tada">感谢您收看此次直播，记得三连支持哦！</h2><p><br><br><a href=https://github.com/ksky521/nodeppt class="button animated delay-1s fadeInUp" target=_blank><i class="fa fa-cloud-download"></i> nodeppt提供服务</a></p></div></section></article></div><script>window.pluginsOptions = {}
+
+
+
+    window.webslidesOptions = {}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    let isPrintMode = false;
+    if(~location.search.indexOf('print-pdf')){
+        isPrintMode = true;
+        WebSlides.registerPlugin('scroll', function(){});
+    }
+    const wsOptions = {
+        loop: false
+    };
+    if(window.webslidesOptions){
+        for (let i in webslidesOptions){
+            if(webslidesOptions.hasOwnProperty(i)){
+                wsOptions[i] = webslidesOptions[i];
+            }
+        }
+    }
+    const ws = new WebSlides(wsOptions)
+
+    window.wsInstance = ws;
+    if(isPrintMode){
+        ws.slides.forEach(s=>s.show())
+    }
+}, false)</script><script src=./js/chunk-vendors.js></script><script src=./js/index.js></script></body></html>
