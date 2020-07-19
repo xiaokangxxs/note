@@ -1,0 +1,105 @@
+<!doctype html><html><head><meta charset=UTF-8><title>公开课直播第二期 - By 小康&amp;小康新鲜事儿</title><link rel=stylesheet href=https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css><link rel=stylesheet href=https://cdn.staticfile.org/prism/1.15.0/themes/prism.min.css><link rel=stylesheet href=https://cdn.staticfile.org/KaTeX/0.10.0-rc.1/katex.min.css><link rel=stylesheet href=https://cdn.staticfile.org/prism/1.15.0/themes/prism-solarizedlight.min.css><link href=./css/chunk-vendors.4e4765ff.css rel=stylesheet></head><body><div><article id=webslides><section slide class="slide bg-gradient-r aligncenter"><div class=wrap wrap=true><h1 class="text-landing text-shadow text-landing animated fadeInRight">公开课直播第二期&amp;大数据平台初体验</h1><p><br><br>讲师：小康</p><div class=aligncenter><ul><li>翻页: ↑/↓/←/→ Space Home End</li><li>全屏: F</li><li>预览: -/+</li><li>网格背景: Enter</li></ul></div><p><br><a href=https://mp.weixin.qq.com/s/3rvOdjxez9mi-6WkQcjGmw target=_blank><i class="fa fa-link"></i>公开课直播第一期&amp;Hadoop前置准备</a><br><br><a href=mailto:xiaokang.188@qq.com class="button ghost animated flipInX delay-1200"><i class="fa fa-envelope"></i> Email</a> <a href=https://space.bilibili.com/475563389 class="button ghost animated flipInX delay-1200" target=_blank><i class="fa fa-laptop"></i> Bilibili</a></p></div><footer><div class=wrap><p><a href=https://mp.weixin.qq.com/s/3-3_Ns5nDIhcB7TS7d-ocA class=alignright target=_blank><i class="fa fa-wechat"></i> 小康新鲜事儿</a></p></div></footer></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/DD1fSz2HF1s/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/DD1fSz2HF1s/')"></span><div class=wrap wrap=true><h2>下载解压，配置环境变量</h2><div class="vertical-align grid"><div class=column><ul><li><a href=https://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-3.2.1/hadoop-3.2.1.tar.gz class="button radius animated delay-1s fadeInDown" target=_blank><i class="fa fa-cloud-download"></i> hadoop-3.2.1.tar.gz</a></li><li>1.点击上方蓝色按钮进行下载gz包，解压至<code>/opt/software</code></li><li>2.配置环境变量（<code>/etc/profile.d/env.sh</code>）</li></ul></div><div class=column><pre class="fadeInUp slow language-bash"><code class=language-bash><span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">tar</span> -zxvf hadoop-3.2.1.tar.gz -C /opt/software/
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">sudo</span> <span class="token function">vim</span> /etc/profile.d/env.sh
+<span class="token comment"># 在原有基础上进行更新</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">HADOOP_HOME</span><span class="token operator">=</span>/opt/software/hadoop-3.2.1
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token variable">${HADOOP_HOME}</span>/bin:<span class="token variable">${HADOOP_HOME}</span>/sbin:<span class="token variable">${NODE_HOME}</span>/bin:<span class="token variable">${MAVEN_HOME}</span>/bin:<span class="token variable">${JAVA_HOME}</span>/bin:<span class="token environment constant">$PATH</span>
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token builtin class-name">.</span> /etc/profile.d/env.sh
+</code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/DD1fSz2HF1s/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/DD1fSz2HF1s/')"></span><div class=wrap wrap=true><h2>创建所需目录，修改Hadoop配置-hadoop-env.sh</h2><div class="vertical-align grid"><div class=column><ul><li>1.先创建好所需目录（<code>tmp、datanode_data、namenode_data</code>）</li><li>2.修改<code>hadoop-env.sh</code>，指定<code>JAVA_HOME</code>绝对路径即可</li></ul></div><div class=column><pre class="fadeInUp slow language-bash"><code class=language-bash><span class="token punctuation">[</span>xiaokang@hadoop hadoop-3.2.1<span class="token punctuation">]</span>$ <span class="token function">mkdir</span> tmp
+<span class="token punctuation">[</span>xiaokang@hadoop hadoop-3.2.1<span class="token punctuation">]</span>$ <span class="token function">mkdir</span> -p dfs/datanode_data
+<span class="token punctuation">[</span>xiaokang@hadoop hadoop-3.2.1<span class="token punctuation">]</span>$ <span class="token function">mkdir</span> -p dfs/namenode_data
+<span class="token punctuation">[</span>xiaokang@hadoop hadoop<span class="token punctuation">]</span>$ <span class="token function">vim</span> hadoop-env.sh
+<span class="token comment"># 54行</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">JAVA_HOME</span><span class="token operator">=</span>/opt/moudle/jdk1.8.0_191
+</code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/DD1fSz2HF1s/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/DD1fSz2HF1s/')"></span><div class=wrap wrap=true><h2>修改Hadoop配置-core-site.xml</h2><div class="vertical-align grid"><div class=column><ul><li>修改<code>core-site.xml</code>，指定文件系统名称和临时目录</li></ul></div><div class=column><pre class="fadeInUp slow language-xml"><code class=language-xml><span class="token comment">&lt;!--默认文件系统的名称 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>fs.defaultFS<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hdfs://hadoop:8020<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+<span class="token comment">&lt;!--指定HDFS执行时的临时目录 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hadoop.tmp.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>file:///opt/software/hadoop-3.2.1/tmp<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+</code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/DD1fSz2HF1s/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/DD1fSz2HF1s/')"></span><div class=wrap wrap=true><h2>修改Hadoop配置-hdfs-site.xml</h2><div class="vertical-align grid"><div class=column><ul><li>修改<code>hdfs-site.xml</code>文件，指定副本数、datanode数据存放目录和namenode数据存放目录</li></ul></div><div class=column><pre class="fadeInUp slow language-xml"><code class=language-xml><span class="token comment">&lt;!--指定hdfs保存数据副本的数量，默认为3，伪分布式模式，此值必须为1--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.replication<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+<span class="token comment">&lt;!--namenode数据存放位置，可以指定多个目录实现容错，用逗号分隔--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.name.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>file:///opt/software/hadoop-3.2.1/dfs/namenode_data<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+<span class="token comment">&lt;!--datanode数据存放位置，可以指定多个目录实现"扩容"，用逗号分隔--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.datanode.data.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>file:///opt/software/hadoop-3.2.1/dfs/datanode_data<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+</code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/DD1fSz2HF1s/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/DD1fSz2HF1s/')"></span><div class=wrap wrap=true><h2>修改Hadoop配置-mapred-site.xml</h2><div class="vertical-align grid"><div class=column><ul><li>修改<code>mapred-site.xml</code>文件，指定mapreduce运行在yarn上</li></ul></div><div class=column><pre class="fadeInUp slow language-xml"><code class=language-xml><span class="token comment">&lt;!--指定mapreduce运行在yarn上--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>mapreduce.framework.name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>yarn<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+</code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/DD1fSz2HF1s/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/DD1fSz2HF1s/')"></span><div class=wrap wrap=true><h2>修改Hadoop配置-yarn-site.xml，配置从节点</h2><div class="vertical-align grid"><div class=column><ul><li>1.修改<code>yarn-site.xml</code>文件，指定resourcemanager地址和nodemanager获取数据的方式</li><li>2.修改<code>workers</code>文件，配置所有从属节点，由于是单机伪分布式，所以只需要指定本机即可</li></ul></div><div class=column><pre class="fadeInUp slow language-xml"><code class=language-xml><span class="token comment">&lt;!--指定yarn的老大resourcemanager的地址--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.hostname<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hadoop<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+<span class="token comment">&lt;!--NodeManager获取数据的方式--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.nodemanager.aux-services<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>mapreduce_shuffle<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+</code></pre><pre class="fadeInUp slow language-bash"><code class=language-bash><span class="token punctuation">[</span>xiaokang@hadoop hadoop<span class="token punctuation">]</span>$ <span class="token function">vim</span> workers
+<span class="token comment"># 删除原有内容加入本机主机名</span>
+hadoop
+</code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/DD1fSz2HF1s/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/DD1fSz2HF1s/')"></span><div class=wrap wrap=true><h2>初始化并启动Hadoop单机伪分布式集群</h2><div class="vertical-align grid"><div class=column><ul><li>1.第一次启动Hadoop集群时需要进行初始化，执行<code>hdfs namenode -format</code>命令</li><li>2.初始化完成后启动HDFS和YARN</li><li>3.验证启动是否成功，使用<code>jps</code>命令或者访问<code>http://192.168.244.188:9870</code></li></ul></div><div class=column><pre class="fadeInUp slow language-bash"><code class=language-bash><span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ hdfs namenode -format
+<span class="token comment"># 格式化成功标志</span>
+<span class="token number">2020</span>-07-20 01:17:19,645 INFO common.Storage: Storage directory /opt/software/hadoop-3.2.1/dfs/namenode_data has been successfully formatted.
+<span class="token comment"># 这里由于启动时会/tmp目录下创建pid文件，所以修改下权限</span>
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">sudo</span> <span class="token function">chown</span> -R xiaokang:hadoopenv /tmp
+<span class="token comment"># 启动HDFS和YARN</span>
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ start-dfs.sh 
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ start-yarn.sh 
+<span class="token comment"># 验证是否启动成功</span>
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ jps
+<span class="token number">12002</span> SecondaryNameNode
+<span class="token number">11795</span> DataNode
+<span class="token number">12739</span> Jps
+<span class="token number">11636</span> NameNode
+<span class="token number">12260</span> ResourceManager
+<span class="token number">12392</span> NodeManager
+</code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/DD1fSz2HF1s/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/DD1fSz2HF1s/')"></span><div class=wrap wrap=true><h2>关闭Hadoop单机伪分布式集群</h2><div class="vertical-align grid"><div class=column><ul><li>使用命令优雅关闭集群<code>stop-dfs.sh</code>、<code>stop-yarn.sh</code></li></ul></div><div class=column><pre class="fadeInUp slow language-bash"><code class=language-bash><span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ stop-dfs.sh 
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ stop-yarn.sh 
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ jps
+<span class="token number">13794</span> Jps
+</code></pre></div></div></div></section><section slide class="slide bg-black-blue aligncenter" image="https://cn.bing.com/az/hprichbg/rb/PragueChristmas_EN-AU8649790921_1920x1080.jpg .dark"><span class="background dark" style="background-image:url('https://cn.bing.com/az/hprichbg/rb/PragueChristmas_EN-AU8649790921_1920x1080.jpg')"></span><div class=wrap wrap=true><h2 class="animated tada">感谢您收看此次直播，记得三连支持哦！</h2><p><br><br><a href=https://github.com/ksky521/nodeppt class="button animated delay-1s fadeInUp" target=_blank><i class="fa fa-cloud-download"></i> nodeppt提供服务</a></p></div></section></article></div><script>window.pluginsOptions = {}
+
+
+
+    window.webslidesOptions = {}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    let isPrintMode = false;
+    if(~location.search.indexOf('print-pdf')){
+        isPrintMode = true;
+        WebSlides.registerPlugin('scroll', function(){});
+    }
+    const wsOptions = {
+        loop: false
+    };
+    if(window.webslidesOptions){
+        for (let i in webslidesOptions){
+            if(webslidesOptions.hasOwnProperty(i)){
+                wsOptions[i] = webslidesOptions[i];
+            }
+        }
+    }
+    const ws = new WebSlides(wsOptions)
+
+    window.wsInstance = ws;
+    if(isPrintMode){
+        ws.slides.forEach(s=>s.show())
+    }
+}, false)</script><script src=./js/chunk-vendors.js></script><script src=./js/index.js></script></body></html>
