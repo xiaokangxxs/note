@@ -1,0 +1,75 @@
+<!doctype html><html><head><meta charset=UTF-8><title>公开课直播第三期 - By 小康&amp;小康新鲜事儿</title><link rel=stylesheet href=https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css><link rel=stylesheet href=https://cdn.staticfile.org/prism/1.15.0/themes/prism.min.css><link rel=stylesheet href=https://cdn.staticfile.org/KaTeX/0.10.0-rc.1/katex.min.css><link rel=stylesheet href=https://cdn.staticfile.org/prism/1.15.0/themes/prism-solarizedlight.min.css><link href=./css/chunk-vendors.4e4765ff.css rel=stylesheet></head><body><div><article id=webslides><section slide class="slide bg-gradient-r aligncenter"><div class=wrap wrap=true><h1 class="text-landing text-shadow text-landing animated fadeInRight">公开课直播第三期&amp;玩儿转Linux</h1><p><br><br>讲师：小康</p><div class=aligncenter><ul><li>翻页: ↑/↓/←/→ Space Home End</li><li>全屏: F</li><li>预览: -/+</li><li>网格背景: Enter</li></ul></div><p><br><a href=https://xiaokang_188.gitee.io/notebook/#/Linux/linux target=_blank><i class="fa fa-link"></i>参考文档-Linux</a><br><br><a href=mailto:xiaokang.188@qq.com class="button ghost animated flipInX delay-1200"><i class="fa fa-envelope"></i> Email</a> <a href=https://space.bilibili.com/475563389 class="button ghost animated flipInX delay-1200" target=_blank><i class="fa fa-laptop"></i> Bilibili</a></p></div><footer><div class=wrap><p><a href=https://mp.weixin.qq.com/s/3-3_Ns5nDIhcB7TS7d-ocA class=alignright target=_blank><i class="fa fa-comments"></i> 小康新鲜事儿</a></p></div></footer></section><section slide class="slide bg-black aligncenter" :class=size-80 image="https://source.unsplash.com/oR0uERTVyD0/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/oR0uERTVyD0/')"></span><div class="wrap size-80" wrap=true><h2>简单了解</h2><div class="vertical-align grid"><div class=column><ul><li>在 Windows 下，打开 “计算机”，我们看到的是一个个的驱动器盘符</li><li>在 Linux 下，我们是看不到这些驱动器盘符的，我们看到的是文件夹（目录）</li></ul></div><div class="fadeInLeft slow column"><img src=http://file.xiaokang.cool/Windows-Linux.png></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/oR0uERTVyD0/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/oR0uERTVyD0/')"></span><div class=wrap wrap=true><h2>文件和目录</h2><div class="vertical-align grid"><div class=column><ul><li>ls:列出目录的内容  cd:切换目录  mkdir:创建目录</li><li>touch:创建文件  rm:删除文件或目录  cp:复制文件或目录</li><li>mv:移动(重命名)文件或目录  cat:查看文件内容</li><li>more:分屏显示文件内容，每次只显示一页内容</li><li>less:与more类似</li><li>less可以按键盘上下方向键显示上下内容,more不能通过上下方向键控制显示</li><li>less不必读整个文件，加载速度会比more更快</li><li>less退出后shell不会留下刚显示的内容,而more退出后会在shell上留下刚显示的内容</li></ul></div><div class=column><pre class="fadeInUp slow language-bash"><code class=language-bash><span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">ls</span>
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">ls</span> -l
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">ls</span> -lha
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token builtin class-name">cd</span> ~
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">mkdir</span> data
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">mkdir</span> -p test/a
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">touch</span> xiaokang.txt
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">rm</span> -rf data/
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">cp</span> xiaokang.txt xiaokang1.txt
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">mv</span> xiaokang.txt xiaokang1.txt test/a/
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">cat</span> example.txt
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">less</span> example.txt
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">more</span> example.txt
+</code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/oR0uERTVyD0/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/oR0uERTVyD0/')"></span><div class=wrap wrap=true><h2>实用系列</h2><div class="vertical-align grid"><div class=column><ul><li>date:查看系统时间  cal:查看日历  df:查看磁盘剩余空间</li><li>ps:查看进程  kill:停止进程  top:动态显示运行中的进程并且排序</li><li>ifconfig:查看计算机当前的网卡配置信息  ping:检测当前计算机到目标计算机之间的网络</li><li>tar:打包/解包  cut:切割文本  echo:在终端中显示参数指定的文字，通常会和重定向联合使用</li><li>|:管道  &gt;:标准输出，会覆盖文件原有的内容  &gt;&gt;:追加，会将内容追加到已有文件的末尾</li></ul></div><div class=column><pre class="fadeInUp slow language-shell"><code class=language-shell><span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">date</span> +<span class="token string">"%F %T"</span>
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">cal</span> -y <span class="token number">2020</span>
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">df</span> -h
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">ps</span> -aux
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">kill</span> <span class="token number">1124</span>
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">top</span>
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">ifconfig</span>
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">ping</span> www.baidu.com
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">tar</span> -zxvf spark-2.4.5-bin-hadoop2.7.tgz -C /opt/software/
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token function">cat</span> /proc/sys/kernel/random/uuid <span class="token operator">|</span> <span class="token function">cut</span> -c <span class="token number">1</span>-8
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token builtin class-name">echo</span> <span class="token string">"小康&amp;小康新鲜事儿"</span>
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ <span class="token builtin class-name">echo</span> <span class="token string">"小康&amp;小康新鲜事儿"</span> <span class="token operator">>></span> example.txt
+</code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/oR0uERTVyD0/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/oR0uERTVyD0/')"></span><div class=wrap wrap=true><h2>Vim操作</h2><div class="vertical-align grid"><div class=column><ul><li><a href=https://gitee.com/xiaokang_188/note/blob/master/resource/example.txt class="button radius animated delay-1s fadeInDown" target=_blank><i class="fa fa-cloud-download"></i> example.txt</a></li><li>1.使用vim编辑<code>example.txt</code> 2.显示行号</li><li>3.移动至第4行，向右移动17个字符，请问你看到的是哪个单词？</li><li>4.移动至第1行，并且搜索<code>xiaokang</code>这个字符串（从上往下，第一次出现），请问在第几行？</li><li>5.将7到9行之间的<code>xiaokang</code>改为<code>xiaokangxxs</code>，并且一个一个挑选是否需要修改，如何下达指令？如果挑选过程中一直按<code>y</code>，那么在最后一行出现改变了几个<code>xiaokang</code>呢？</li><li>6.上述5步操作完成后，我突然反悔了，要全部复原，有哪些办法？</li><li>7.4到6行之间的数据不想要了，如何删除？</li><li>8.将此文件另存为<code>example-test.txt</code></li><li>9.移动至第3行，并且删除6个字符，最终剩下哪些文字？</li><li>10.在第1行上面新增一行，内容为<code>exercise-vim-operation</code></li><li>11.保存并退出</li></ul></div><div class=column><pre class="fadeInUp slow language-shell"><code class=language-shell><span class="token punctuation">[</span>xiaokang@localhost ~<span class="token punctuation">]</span>$ <span class="token function">vim</span> example.txt
+:set nu
+4G<span class="token punctuation">(</span>移动至第4行<span class="token punctuation">)</span>、17+space<span class="token punctuation">(</span>向右移动17个字符<span class="token punctuation">)</span> God
+gg<span class="token punctuation">(</span>移动至第1行<span class="token punctuation">)</span>、/xiaokang<span class="token punctuation">(</span>向下搜索xiaokang这个字符串<span class="token punctuation">)</span> <span class="token number">7</span>
+:7,9s/xiaokang/xiaokangxxs/gc <span class="token number">3</span> 次替换，共 <span class="token number">3</span> 行
+按u或者直接点击:q<span class="token operator">!</span><span class="token punctuation">(</span>不保存强制退出<span class="token punctuation">)</span>
+4G<span class="token punctuation">(</span>移动至第4行<span class="token punctuation">)</span>、3dd<span class="token punctuation">(</span>向下删除3行<span class="token punctuation">)</span> or 4G<span class="token punctuation">(</span>移动至第4行<span class="token punctuation">)</span>、V<span class="token punctuation">(</span>向下选中3行<span class="token punctuation">)</span>、d
+:w example-test.txt <span class="token string">"example-test.txt"</span> <span class="token punctuation">[</span>新<span class="token punctuation">]</span><span class="token punctuation">[</span>dos<span class="token punctuation">]</span> 8L, 497C 已写入
+3G<span class="token punctuation">(</span>移动至第3行<span class="token punctuation">)</span>、6x<span class="token punctuation">(</span>向右删除6个字符<span class="token punctuation">)</span> 小康新鲜事儿
+gg<span class="token punctuation">(</span>移动至第1行<span class="token punctuation">)</span>、O<span class="token punctuation">(</span>往第1行上方插入一行<span class="token punctuation">)</span>
+:wq or :x
+</code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/oR0uERTVyD0/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/oR0uERTVyD0/')"></span><div class=wrap wrap=true><h2>几个有趣的命令</h2><div class="vertical-align grid"><div class=column><ul><li>1.小火车<code>sl</code></li><li>2.动物举牌<code>cowsay</code></li><li>3.黑客帝国同款代码雨<code>cmatrix</code></li></ul></div><div class=column><pre class="fadeInUp slow language-shell"><code class=language-shell><span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ sl -<span class="token punctuation">[</span>alF<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ cowsay <span class="token string">"小康&amp;小康新鲜事儿"</span>
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ cowsay -f milk <span class="token string">"小康&amp;小康新鲜事儿"</span>
+<span class="token punctuation">[</span>xiaokang ~<span class="token punctuation">]</span>$ cmatrix
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ cmatrix -C red
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ cmatrix -u <span class="token number">2</span> -C red
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ cmatrix -u <span class="token number">8</span> -C red
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ cmatrix -u <span class="token number">8</span> -C blue
+<span class="token punctuation">[</span>xiaokang@hadoop ~<span class="token punctuation">]</span>$ cmatrix -b -u <span class="token number">8</span> -C blue
+</code></pre></div></div></div></section><section slide class="slide bg-black-blue aligncenter" image="https://cn.bing.com/az/hprichbg/rb/PragueChristmas_EN-AU8649790921_1920x1080.jpg .dark"><span class="background dark" style="background-image:url('https://cn.bing.com/az/hprichbg/rb/PragueChristmas_EN-AU8649790921_1920x1080.jpg')"></span><div class=wrap wrap=true><h2 class="animated tada">感谢您收看此次直播，记得三连支持哦！</h2><p><br><br><a href=https://github.com/ksky521/nodeppt class="button animated delay-1s fadeInUp" target=_blank><i class="fa fa-cloud-download"></i> nodeppt提供服务</a></p></div></section></article></div><script>window.pluginsOptions = {}
+
+
+
+    window.webslidesOptions = {}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    let isPrintMode = false;
+    if(~location.search.indexOf('print-pdf')){
+        isPrintMode = true;
+        WebSlides.registerPlugin('scroll', function(){});
+    }
+    const wsOptions = {
+        loop: false
+    };
+    if(window.webslidesOptions){
+        for (let i in webslidesOptions){
+            if(webslidesOptions.hasOwnProperty(i)){
+                wsOptions[i] = webslidesOptions[i];
+            }
+        }
+    }
+    const ws = new WebSlides(wsOptions)
+
+    window.wsInstance = ws;
+    if(isPrintMode){
+        ws.slides.forEach(s=>s.show())
+    }
+}, false)</script><script src=./js/chunk-vendors.js></script><script src=./js/index.js></script></body></html>
