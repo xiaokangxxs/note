@@ -1,0 +1,11 @@
+1 小康新鲜事儿 k1583223 192.168.244.188 hello
+2,小康新鲜事儿,k1583223,192.168.244.189,flume
+微信公众号:小康新鲜事儿
+In the beginning God created the heaven and the earth.And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters.
+And God said, Behold, I have given you every herb bearing seed, which is upon the face of all the earth, and every tree, in the which is the fruit of a tree yielding seed; to you it shall be for meat.
+And God saw every thing that he had made, and, behold, it was very good. And the evening and the morning were the sixth day.
+xiaokang	MapReduce	Hive	HBase	Spark
+微信公众号：小康新鲜事儿	HBase	MapReduce	Hive	Spark	xiaokang
+MapReduce	HBase	Flink	Hadoop	微信公众号：小康新鲜事儿	Spark	xiaokang	Hive
+Hadoop	Flink	Spark	xiaokang	Hive	MapReduce	HBase	微信公众号：小康新鲜事儿
+Spark	微信公众号：小康新鲜事儿	Hive	xiaokang	HBase	Flink
