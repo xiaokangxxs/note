@@ -1,0 +1,80 @@
+<!doctype html><html><head><meta charset=UTF-8><title>公开课直播第五期 - By 小康&amp;小康新鲜事儿</title><link rel=stylesheet href=https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css><link rel=stylesheet href=https://cdn.staticfile.org/prism/1.15.0/themes/prism.min.css><link rel=stylesheet href=https://cdn.staticfile.org/KaTeX/0.10.0-rc.1/katex.min.css><link rel=stylesheet href=https://cdn.staticfile.org/prism/1.15.0/themes/prism-solarizedlight.min.css><link href=./css/chunk-vendors.4e4765ff.css rel=stylesheet></head><body><div><article id=webslides><section slide class="slide bg-gradient-r aligncenter"><div class=wrap wrap=true><h1 class="text-landing text-shadow text-landing animated fadeInRight">公开课直播第五期&amp;高可用Hadoop集群</h1><p><br><br>讲师：小康</p><div class=aligncenter><ul><li>翻页: ↑/↓/←/→ Space Home End</li><li>全屏: F</li><li>预览: -/+</li><li>网格背景: Enter</li></ul></div><p><br><a href=https://mp.weixin.qq.com/s/laevXHh-7cacT7N6Ie7mvA target=_blank><i class="fa fa-link"></i>公开课直播第二期&amp;大数据平台初体验</a><br><br><a href=mailto:xiaokang.188@qq.com class="button ghost animated flipInX delay-1200"><i class="fa fa-envelope"></i> Email</a> <a href=https://space.bilibili.com/475563389 class="button ghost animated flipInX delay-1200" target=_blank><i class="fa fa-laptop"></i> Bilibili</a></p></div><footer><div class=wrap><p><a href=https://mp.weixin.qq.com/s/3-3_Ns5nDIhcB7TS7d-ocA class=alignright target=_blank><i class="fa fa-wechat"></i> 小康新鲜事儿</a></p></div></footer></section><section slide class="slide bg-black aligncenter" :class="aligncenter animated zoomIn size-40" image="https://source.unsplash.com/26WixHTutxc/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/26WixHTutxc/')"></span><div class="wrap aligncenter animated zoomIn size-40" wrap=true><h2>集群规划</h2><img src=http://file.xiaokang.cool/ha-hadoop-plan.png class=size-30></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/26WixHTutxc/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/26WixHTutxc/')"></span><div class=wrap wrap=true><h2>启动zk集群和时间服务器</h2><pre class="fadeInUp slow language-bash"><code class=language-bash><span class="token punctuation">[</span>xiaokang@hadoop01 ~<span class="token punctuation">]</span>$ zkServer.sh start
+<span class="token punctuation">[</span>xiaokang@hadoop02 ~<span class="token punctuation">]</span>$ zkServer.sh start
+<span class="token punctuation">[</span>xiaokang@hadoop03 ~<span class="token punctuation">]</span>$ zkServer.sh start
+<span class="token punctuation">[</span>xiaokang@hadoop01 ~<span class="token punctuation">]</span>$ <span class="token function">sudo</span> systemctl start ntpd
+</code></pre></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/26WixHTutxc/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/26WixHTutxc/')"></span><div class=wrap wrap=true><h2>创建所需目录</h2><div class="vertical-align grid"><div class=column><ul><li>创建所需目录<code>tmp、journalnode、edits、datanode_data、namenode_data</code></li></ul></div><div class=column><pre class="fadeInUp slow language-bash"><code class=language-bash><span class="token punctuation">[</span>xiaokang@hadoop01 ~<span class="token punctuation">]</span>$ <span class="token function">mkdir</span> -p /opt/software/hadoop-3.2.1/tmp
+<span class="token punctuation">[</span>xiaokang@hadoop01 ~<span class="token punctuation">]</span>$ <span class="token function">mkdir</span> -p /opt/software/hadoop-3.2.1/dfs/journalnode_data
+<span class="token punctuation">[</span>xiaokang@hadoop01 ~<span class="token punctuation">]</span>$ <span class="token function">mkdir</span> -p /opt/software/hadoop-3.2.1/dfs/edits
+<span class="token punctuation">[</span>xiaokang@hadoop01 ~<span class="token punctuation">]</span>$ <span class="token function">mkdir</span> -p /opt/software/hadoop-3.2.1/dfs/datanode_data
+<span class="token punctuation">[</span>xiaokang@hadoop01 ~<span class="token punctuation">]</span>$ <span class="token function">mkdir</span> -p /opt/software/hadoop-3.2.1/dfs/namenode_data
+</code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/26WixHTutxc/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/26WixHTutxc/')"></span><div class=wrap wrap=true><h2>修改配置文件</h2><div class="vertical-align grid"><div class=column><ul><li><a href=https://github.com/xiaokangxxs/note/tree/master/20200815 class="button radius animated delay-1s fadeInDown" target=_blank><i class="fa fa-cloud-download"></i> hadoop-3.2.1相关配置文件(7个)</a></li><li>1.点击上方蓝色按钮即可找到7个配置文件，具体添加内容请看直播讲解</li><li>2.在sbin目录下修改start-dfs.sh、stop-dfs.sh，在脚本中添加内容；修改start-yarn.sh、stop-yarn.sh，在脚本中添加内容</li><li>3.特别注意<code>yarn-site.xml</code>，分发完成后需要在hadoop02和hadoop03上做相应的更改</li></ul></div><div class=column><pre class="fadeInUp slow language-bash"><code class=language-bash><span class="token assign-left variable">DFS_NAMENODE_USER</span><span class="token operator">=</span>xiaokang
+<span class="token assign-left variable">HDFS_DATANODE_USER</span><span class="token operator">=</span>xiaokang
+<span class="token assign-left variable">HDFS_JOURNALNODE_USER</span><span class="token operator">=</span>xiaokang
+<span class="token assign-left variable">HDFS_ZKFC_USER</span><span class="token operator">=</span>xiaokang
+
+<span class="token assign-left variable">YARN_RESOURCEMANAGER_USER</span><span class="token operator">=</span>xiaokang
+<span class="token assign-left variable">YARN_NODEMANAGER_USER</span><span class="token operator">=</span>xiaokang
+</code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" image="https://source.unsplash.com/26WixHTutxc/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/26WixHTutxc/')"></span><div class=wrap wrap=true><h2>初始化并启动集群</h2><div class="vertical-align grid"><div class=column><ul><li>1.先启动3个JournalNode</li><li>2.在hadoop01执行<code>hdfs namenode -format</code>命令</li><li>3.复制hadoop01上的NameNode的元数据到hadoop02和hadoop03</li><li>4.在NameNode节点(hadoop01或hadoop02或hadoop03)格式化zkfc</li><li>5.在hadoop01上启动HDFS相关服务</li><li>6.在hadoop01上启动YARN相关服务</li><li>7.最后单独启动hadoop01的历史任务服务器</li></ul></div><div class=column><pre class="fadeInUp slow language-bash"><code class=language-bash><span class="token punctuation">[</span>xiaokang@hadoop01 ~<span class="token punctuation">]</span>$ hadoop-daemon.sh start journalnode
+<span class="token punctuation">[</span>xiaokang@hadoop02 ~<span class="token punctuation">]</span>$ hadoop-daemon.sh start journalnode
+<span class="token punctuation">[</span>xiaokang@hadoop03 ~<span class="token punctuation">]</span>$ hadoop-daemon.sh start journalnode
+<span class="token punctuation">[</span>xiaokang@hadoop01 ~<span class="token punctuation">]</span>$ hdfs namenode -format
+<span class="token punctuation">[</span>xiaokang@hadoop01 ~<span class="token punctuation">]</span>$ <span class="token function">scp</span> -r /opt/software/hadoop-3.2.1/dfs/namenode_data/current/ xiaokang@hadoop02:/opt/software/hadoop-3.2.1/dfs/namenode_data/
+<span class="token punctuation">[</span>xiaokang@hadoop01 ~<span class="token punctuation">]</span>$ <span class="token function">scp</span> -r /opt/software/hadoop-3.2.1/dfs/namenode_data/current/ xiaokang@hadoop03:/opt/software/hadoop-3.2.1/dfs/namenode_data/
+<span class="token punctuation">[</span>xiaokang@hadoop01 ~<span class="token punctuation">]</span>$ hdfs zkfc -formatZK
+<span class="token punctuation">[</span>xiaokang@hadoop01 ~<span class="token punctuation">]</span>$ start-dfs.sh
+<span class="token punctuation">[</span>xiaokang@hadoop03 ~<span class="token punctuation">]</span>$ start-yarn.sh
+<span class="token punctuation">[</span>xiaokang@hadoop01 ~<span class="token punctuation">]</span>$ mr-jobhistory-daemon.sh start historyserver
+</code></pre></div></div></div></section><section slide class="slide bg-black aligncenter" :class="aligncenter animated zoomIn size-60" image="https://source.unsplash.com/26WixHTutxc/ .dark"><span class="background dark" style="background-image:url('https://source.unsplash.com/26WixHTutxc/')"></span><div class="wrap aligncenter animated zoomIn size-60" wrap=true><h2>验证</h2><div class=vertical-align><pre class="fadeInUp slow language-bash"><code class=language-bash>--------hadoop01--------
+<span class="token number">6336</span> ResourceManager
+<span class="token number">2930</span> QuorumPeerMain
+<span class="token number">5635</span> JournalNode
+<span class="token number">6470</span> NodeManager
+<span class="token number">5388</span> DataNode
+<span class="token number">5263</span> NameNode
+<span class="token number">5823</span> DFSZKFailoverController
+--------hadoop02--------
+<span class="token number">3969</span> NameNode
+<span class="token number">4166</span> JournalNode
+<span class="token number">4057</span> DataNode
+<span class="token number">4265</span> DFSZKFailoverController
+<span class="token number">2667</span> QuorumPeerMain
+<span class="token number">4444</span> ResourceManager
+<span class="token number">4526</span> NodeManager
+--------hadoop03--------
+<span class="token number">2801</span> QuorumPeerMain
+<span class="token number">4244</span> DataNode
+<span class="token number">4452</span> DFSZKFailoverController
+<span class="token number">4634</span> ResourceManager
+<span class="token number">4715</span> NodeManager
+<span class="token number">4156</span> NameNode
+<span class="token number">4335</span> JournalNode
+</code></pre></div></div></section><section slide class="slide bg-black-blue aligncenter" image="https://cn.bing.com/az/hprichbg/rb/PragueChristmas_EN-AU8649790921_1920x1080.jpg .dark"><span class="background dark" style="background-image:url('https://cn.bing.com/az/hprichbg/rb/PragueChristmas_EN-AU8649790921_1920x1080.jpg')"></span><div class=wrap wrap=true><h2 class="animated tada">感谢您收看此次直播，记得三连支持哦！</h2><p><br><br><a href=https://github.com/ksky521/nodeppt class="button animated delay-1s fadeInUp" target=_blank><i class="fa fa-cloud-download"></i> nodeppt提供服务</a></p></div></section></article></div><script>window.pluginsOptions = {}
+
+
+
+    window.webslidesOptions = {}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    let isPrintMode = false;
+    if(~location.search.indexOf('print-pdf')){
+        isPrintMode = true;
+        WebSlides.registerPlugin('scroll', function(){});
+    }
+    const wsOptions = {
+        loop: false
+    };
+    if(window.webslidesOptions){
+        for (let i in webslidesOptions){
+            if(webslidesOptions.hasOwnProperty(i)){
+                wsOptions[i] = webslidesOptions[i];
+            }
+        }
+    }
+    const ws = new WebSlides(wsOptions)
+
+    window.wsInstance = ws;
+    if(isPrintMode){
+        ws.slides.forEach(s=>s.show())
+    }
+}, false)</script><script src=./js/chunk-vendors.js></script><script src=./js/index.js></script></body></html>
