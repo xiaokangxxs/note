@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+    <property>
+        <!--数据块默认大小128M-->
+        <name>dfs.blocksize</name>
+        <value>134217728</value>
+    </property>
+    <property>
+        <!--副本数量，不配置的话默认为3-->
+        <name>dfs.replication</name> 
+        <value>3</value>
+    </property>
+    <property>
+        <!--namenode节点数据（元数据）的存放位置-->
+        <name>dfs.name.dir</name> 
+        <value>file:///opt/software/hadoop-3.2.1/dfs/namenode_data</value>
+    </property>
+    <property>
+        <!--datanode节点数据（元数据）的存放位置-->
+        <name>dfs.data.dir</name> 
+        <value>file:///opt/software/hadoop-3.2.1/dfs/datanode_data</value>
+    </property>
+    <property>
+        <name>dfs.webhdfs.enabled</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>dfs.datanode.max.transfer.threads</name>
+        <value>4096</value>
+        </property>
+    <property>
+        <!--指定hadoop集群在zookeeper上注册的节点名-->
+        <name>dfs.nameservices</name>
+        <value>hacluster</value>
+    </property>
+    <property>
+        <!-- hacluster集群下有三个namenode，分别为nn1,nn2,nn3 -->
+        <name>dfs.ha.namenodes.hacluster</name>
+        <value>nn1,nn2,nn3</value>
+    </property>
+    <!-- nn1的rpc、http通信 -->
+    <property>
+        <name>dfs.namenode.rpc-address.hacluster.nn1</name>
+        <value>hadoop01:8020</value>
+    </property> 
+    <property>
+        <name>dfs.namenode.http-address.hacluster.nn1</name> 
+        <value>hadoop01:9870</value>
+    </property>
+    <!-- nn2的rpc、http通信 -->
+    <property>
+        <name>dfs.namenode.rpc-address.hacluster.nn2</name>
+        <value>hadoop02:8020</value>
+    </property>
+    <property>
+        <name>dfs.namenode.http-address.hacluster.nn2</name>
+        <value>hadoop02:9870</value>
+    </property>
+    <!-- nn3的rpc、http通信 -->
+    <property>
+        <name>dfs.namenode.rpc-address.hacluster.nn3</name>
+        <value>hadoop03:8020</value>
+    </property> 
+    <property>
+        <name>dfs.namenode.http-address.hacluster.nn3</name> 
+        <value>hadoop03:9870</value>
+    </property>
+    <property>
+        <!-- 指定namenode的元数据在JournalNode上存放的位置 -->
+        <name>dfs.namenode.shared.edits.dir</name>
+        <value>qjournal://hadoop01:8485;hadoop02:8485;hadoop03:8485/hacluster</value>
+    </property>
+    <property>
+        <!-- 指定JournalNode在本地磁盘存放数据的位置 -->
+        <name>dfs.journalnode.edits.dir</name>
+        <value>/opt/software/hadoop-3.2.1/dfs/journalnode_data</value>
+    </property>
+    <property>
+        <!-- namenode操作日志的存放位置 -->
+        <name>dfs.namenode.edits.dir</name>
+        <value>/opt/software/hadoop-3.2.1/dfs/edits</value>
+    </property>
+    <property>
+        <!-- 开启namenode故障转移自动切换 -->
+        <name>dfs.ha.automatic-failover.enabled</name>
+        <value>true</value> 
+    </property>
+    <property>
+        <!-- 配置失败自动切换实现方式 -->
+        <name>dfs.client.failover.proxy.provider.hacluster</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>    
+    <property>
+        <!-- 配置隔离机制 -->
+        <name>dfs.ha.fencing.methods</name>
+        <value>sshfence</value>
+    </property>
+    <property>
+        <!-- 使用隔离机制需要SSH免密登录 -->
+        <name>dfs.ha.fencing.ssh.private-key-files</name>
+        <value>/home/xiaokang/.ssh/id_rsa</value>
+    </property>
+    <property>
+        <!-- 配置sshfence隔离机制超时时间 -->
+        <name>dfs.ha.fencing.ssh.connect-timeout</name>
+        <value>30000</value>
+    </property>
+    <property>
+        <!--hdfs文件操作权限,false为不验证-->
+        <name>dfs.permissions</name> 
+        <value>false</value>
+    </property>
+</configuration>
